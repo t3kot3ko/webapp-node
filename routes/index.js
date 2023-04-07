@@ -65,6 +65,13 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
   res.send('Upload successfully completed; size: ' + file.size);
 });
 
+router.get("/console", (req, res) => {
+  const message = req.query.message || "Message"
+  console.log(message);
+
+  res.json({message: "Wrote on console: " + message})
+});
+
 router.get('/http_get', async (req, res) => {
   const url = req.query.url
 
