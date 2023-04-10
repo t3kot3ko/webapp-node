@@ -6,6 +6,14 @@ const path = require('path');
 const axios = require('axios');
 const https = require("https");
 
+const structuredLogging = require('structured-logging');
+const bunyan = require('bunyan');
+
+const logger = bunyan.createLogger({
+  name: "webapp-node-logger",
+  serializers: structuredLogging.serializers,
+});
+
 var router = express.Router();
 
 /* GET home page. */
@@ -71,6 +79,15 @@ router.get("/console", (req, res) => {
 
   res.json({message: "Wrote on console: " + message})
 });
+
+// Output structured log in JSON
+router.get("/log", (req, res) => {
+  const message = req.query.message || "Message"
+  const type = req.query.type || "info"
+  logger[type](message);
+  res.end()
+});
+
 
 router.get('/http_get', async (req, res) => {
   const url = req.query.url
