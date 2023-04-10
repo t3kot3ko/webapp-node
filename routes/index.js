@@ -89,6 +89,19 @@ router.get("/log", (req, res) => {
 });
 
 
+router.get("/log_json", (req, res) => {
+  const data = {
+    "repository": "GitHub",
+    "title": "webapp-node",
+    "company": "Microsoft"
+  }
+
+  const json = JSON.stringify(data);
+  console.log(json)
+  res.json({message: "Wrote stringified JSON on console"})
+});
+
+
 router.get('/http_get', async (req, res) => {
   const url = req.query.url
 
