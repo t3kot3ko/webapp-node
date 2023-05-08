@@ -36,6 +36,10 @@ router.get("/header", (req, res) => {
   res.json(req.headers)
 })
 
+router.get("/env", (req, res) => {
+  res.json(process.env)
+})
+
 router.get("/status", (req, res) => {
   const status = req.query.status || 200
   res.status(status)
